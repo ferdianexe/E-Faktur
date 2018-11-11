@@ -12,5 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('menu');
 });
+Route::get('/menu', function () {
+    return view('menu');
+});
+Route::get('/data', function () {
+    return view('data');
+});
+Route::get('/invoices', function () {
+    return view('invoices');
+});
+

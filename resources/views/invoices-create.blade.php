@@ -85,22 +85,22 @@
       var i=3;  
       $('#add').click(function(){  
            i++;  
-           $('#invoices_data').append('<tr><th scope="row">'+i+'</th>'+
+           $('#invoices_data').append('<tr id=row'+i+'><th scope="row">'+i+'</th>'+
                                         '<td><input type="text" placeholder="Barang" class="form-control" /></td>'+
                                         '<td/>'+
                                         '<td><input type="number" class="form-control" id="inputJumlah"'+i+'></td>'+
                                         '<td><input type="number" class="form-control" id="inputHarga"'+i+'></td>'+
                                         '<td><input type="number" class="form-control" id="inputDiskon"'+i+'></td>'+
                                         '<td> 0 </td>'+
-                                        '<td class="btn btn-danger">Delete</td>'+
+                                        '<td class="btn btn-danger btn_remove" nomor='+i+'>Delete</td>'+
                                         '</tr>');  
       });  
-  /// copas blom kepake
+
       $(document).on('click', '.btn_remove', function(){  
-           var button_id = $(this).attr("id");   
+           var button_id = $(this).attr("nomor");   
            $('#row'+button_id+'').remove();  
       });  
-
+       /// copas blom kepake
       function printErrorMsg (msg) {
          $(".print-error-msg").find("ul").html('');
          $(".print-error-msg").css('display','block');

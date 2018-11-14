@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row">
             <p class="col-8 h2">Data utama</p>
-            <button type="button" class="btn btn-primary col-4">Buat Data</button>
+            <a href="{{ url('data/create') }}" type="button" class="btn btn-primary col-4">Buat Data Baru</a>
         </div>
       </div>
       <br>

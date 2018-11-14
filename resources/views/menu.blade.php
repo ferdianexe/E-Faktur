@@ -20,8 +20,8 @@
 <div id='cssmenu'>
 <ul>
    <li class="{{Request::is('/') ? 'active':''}}"><a href="{{ url('/') }}">Home</a></li>
-   <li class="{{Request::is('data') ? 'active':''}}"><a href="{{ url('/data') }}">Master</a></li>
-   <li class="{{Request::is('invoices') ? 'active':''}}"><a href="{{ url('/invoices') }}">Invoices</a></li>
+   <li class="{{Request::is('data/*') || Request::is('data') ? 'active':''}}"><a href="{{ url('/data') }}">Master</a></li>
+   <li class="{{Request::is('invoices/*') || Request::is('invoices') ? 'active':''}}"><a href="{{ url('/invoices') }}">Invoices</a></li>
 </ul>
 </div>
 

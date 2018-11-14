@@ -20,6 +20,12 @@ Route::get('/menu', function () {
 Route::get('/data', function () {
     return view('data');
 });
+Route::get('/data/create', function () {
+    return view('data-create');
+});
+Route::get('/invoices/create', function () {
+    return view('invoices-create');
+});
 Route::get('/invoices', function () {
     return view('invoices');
 });

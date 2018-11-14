@@ -7,7 +7,7 @@
       <div class="container">
         <div class="row">
             <p class="col-8 h2">Invoice</p>
-            <button type="button" class="btn btn-primary col-4">Buat Invoices</button>
+            <a href="{{ url('invoices/create') }}" type="button" class="btn btn-primary col-4">Buat Data Baru</a>
         </div>
       </div>
       <br>

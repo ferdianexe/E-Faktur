@@ -6,33 +6,33 @@
   <div class="content">
       <div class="container">
         <div class="row">
-            <p class="col-8 h2">Membuat Data</p>
+            <p class="col-8 h2">Mengubah Data</p>
         </div>
       </div>
       <br>
       <div class="container">
         <br>
-        <form method="post" action="/data/create">
+        <form method="POST" action="{{ route('data.update', $dataMaster->id) }}">
             <div class="form-row">
                 @csrf
                 <div class="form-group col-md-6">
                 <label for="inputBarang">Nama Barang</label>
-                <input type="text" class="form-control" id="inputBarang" name="name" placeholder="Nama Barang">
+                <input type="text" class="form-control" id="inputBarang" name="name" value='{{$dataMaster->name}}' >
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputSatuan">Satuan</label>
-                <input type="text" class="form-control" id="inputSatuan" name="satuan" placeholder="Jenis Satuan">
+                <input type="text" class="form-control" id="inputSatuan" name="satuan" value='{{$dataMaster->satuan}}'>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputJumlah">Harga</label>
-                <input type="number" class="form-control" id="inputJumlah" name="harga" placeholder="Dalam Angka">
+                <input type="number" class="form-control" id="inputJumlah" name="harga" value='{{$dataMaster->harga}}'>
             </div>
             <div class="form-group">
                 <label for="inputStock">Stock</label>
-                <input type="number" class="form-control" id="inputStock" name="stock" placeholder="Dalam Angka">
+                <input type="number" class="form-control" id="inputStock" name="stock" value='{{$dataMaster->stock}}'>
             </div>
-            <button type="submit" class="btn btn-primary">Tambah Barang </button>
+            <button type="submit" class="btn btn-primary">Simpan Barang </button>
         </form>
       </div>
   </div>

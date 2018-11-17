@@ -17,12 +17,14 @@ Route::get('/', function () {
 Route::get('/menu', function () {
     return view('menu');
 });
-Route::get('/data', function () {
-    return view('data');
-});
+Route::get('/data','DataMasterController@index');
+Route::post('/data/create','DataMasterController@store');
 Route::get('/data/create', function () {
     return view('data-create');
 });
+Route::get('/data/edit/{id}', 'DataMasterController@edit')->name('data.edit');
+Route::post('/data/edit/{id}','DataMasterController@update')->name('data.update');
+Route::delete('/data/delete/{id}','DataMasterController@destroy')->name('data.delete');
 Route::get('/invoices/create', function () {
     return view('invoices-create');
 });

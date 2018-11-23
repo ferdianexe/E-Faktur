@@ -15,6 +15,8 @@ class PurchaseInvoiceController extends Controller
     public function index()
     {
         //
+        $purchaseInvoices = PurchaseInvoice::all();
+        return view('invoices', compact('purchaseInvoices'));
     }
 
     /**
@@ -36,6 +38,16 @@ class PurchaseInvoiceController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'kode'=>'required',
+            'harga'=> 'required|integer',
+        ]);
+        $purchaseInvoice = new PurchaseInvoice([
+            'kode' => $request->get('kode'),
+            'harga'=> $request->get('harga'),
+        ]);
+        $purchaseInvoice->save();
+        return redirect('/invoices')->with('success', 'Invoice has been added');
     }
 
     /**

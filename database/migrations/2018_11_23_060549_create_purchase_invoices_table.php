@@ -16,7 +16,7 @@ class CreatePurchaseInvoicesTable extends Migration
         Schema::create('purchase_invoices', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('name');
+            $table->string('kode');
             $table->integer('harga');
         });
     }

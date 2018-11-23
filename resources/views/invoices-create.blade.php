@@ -13,19 +13,21 @@
       <br>
       <div class="container">
         <br>
-        <form>
+        <form method="post" action="/invoices/create">
             <div class="form-row">
+                @csrf
                 <div class="form-group col-md-6">
                 <label for="inputKodeInvoice">Kode Invoice</label>
-                <input type="text" class="form-control" id="inputKodeInvoice" placeholder="Kode Invoice">
+                <input type="text" class="form-control" id="inputKodeInvoice" name="kode" placeholder="Kode Invoice">
                 </div>
                 <div class="form-group col-md-6">
                 <label for="inputTanggal">Tanggal</label>
                 <input type="date" class="form-control" id="inputTanggal">
                 </div>
                 <label>Total Semua</label><br>
-                <input type="text" readonly class="form-control" value="0">
-                
+                <input type="text" name="harga" readonly class="form-control" value="0">
+                <button type="submit" class="btn btn-primary">Save Faktur</button>
+
             </div>
             <br>
             <div class="form-group">
@@ -75,16 +77,16 @@
                         </tr>
                     </tbody>
                 </table>
-                <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
+                <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
             </div>
         </form>
       </div>
   </div>
   <script type="text/javascript">
-    $(document).ready(function(){      
-      var i=3;  
-      $('#add').click(function(){  
-           i++;  
+    $(document).ready(function(){
+      var i=3;
+      $('#add').click(function(){
+           i++;
            $('#invoices_data').append('<tr id=row'+i+'><th scope="row">'+i+'</th>'+
                                         '<td><input type="text" placeholder="Barang" class="form-control" /></td>'+
                                         '<td/>'+
@@ -93,13 +95,13 @@
                                         '<td><input type="number" class="form-control" id="inputDiskon"'+i+'></td>'+
                                         '<td> 0 </td>'+
                                         '<td class="btn btn-danger btn_remove" nomor='+i+'>Delete</td>'+
-                                        '</tr>');  
-      });  
+                                        '</tr>');
+      });
 
-      $(document).on('click', '.btn_remove', function(){  
-           var button_id = $(this).attr("nomor");   
-           $('#row'+button_id+'').remove();  
-      });  
+      $(document).on('click', '.btn_remove', function(){
+           var button_id = $(this).attr("nomor");
+           $('#row'+button_id+'').remove();
+      });
        /// copas blom kepake
       function printErrorMsg (msg) {
          $(".print-error-msg").find("ul").html('');

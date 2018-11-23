@@ -67,9 +67,11 @@ class PurchaseInvoiceController extends Controller
      * @param  \App\PurchaseInvoice  $purchaseInvoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(PurchaseInvoice $purchaseInvoice)
+    public function edit($id)
     {
         //
+        $purchaseInvoices = PurchaseInvoice::find($id);
+        return view('invoices-edit', compact('purchaseInvoices'));
     }
 
     /**
@@ -79,9 +81,18 @@ class PurchaseInvoiceController extends Controller
      * @param  \App\PurchaseInvoice  $purchaseInvoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PurchaseInvoice $purchaseInvoice)
+    public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'kode'=>'required',
+            'harga'=> 'required|integer',
+        ]);
+        $purchaseInvoices = PurchaseInvoice::find($id);
+        $purchaseInvoices->kode = $request->get('kode');
+        $purchaseInvoices->harga = $request->get('harga');
+        $purchaseInvoices->save();
+        return redirect('/invoices')->with('success', 'Invoice has been updated');
     }
 
     /**

@@ -20,6 +20,7 @@
               <th scope="col">Tanggal</th>
               <th scope="col">Total</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -30,6 +31,7 @@
                   <td>{{$purchaseInvoice->created_at}}</td>
                   <td>{{$purchaseInvoice->harga}}</td>
                   <td class="btn btn-danger">Delete</td>
+                  <td><a href="{{ route('invoices.edit',$purchaseInvoice->id)}}" class="btn btn-primary">Edit</a></td>
               </tr>
               @endforeach
           </tbody>

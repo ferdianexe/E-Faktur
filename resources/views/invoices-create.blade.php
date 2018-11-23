@@ -5,15 +5,12 @@
   <br>
   <div class="content">
       <div class="container">
-        <div class="row">
-            <p class="col-8 h2">Buat Faktur</p>
-            <button type="button" class="btn btn-primary col-4">Save Faktur</button>
-        </div>
-      </div>
-      <br>
-      <div class="container">
-        <br>
         <form method="post" action="/invoices/create">
+            <div class="row">
+                <p class="col-8 h2">Buat Faktur</p>
+                <button type="submit" class="btn btn-primary col-4">Save Faktur</button>
+            </div>
+            <br>
             <div class="form-row">
                 @csrf
                 <div class="form-group col-md-6">
@@ -26,7 +23,6 @@
                 </div>
                 <label>Total Semua</label><br>
                 <input type="text" name="harga" readonly class="form-control" value="0">
-                <button type="submit" class="btn btn-primary">Save Faktur</button>
 
             </div>
             <br>

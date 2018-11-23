@@ -29,8 +29,9 @@ Route::get('/invoices/create', function () {
     return view('invoices-create');
 });
 Route::get('/invoices','PurchaseInvoiceController@index');
-Route::post('/invoices/create','PurchaseInvoiceController@store');
+Route::post('/invoices/create/{banyak}','PurchaseInvoiceController@store');
 Route::get('/invoices/edit/{id}', 'PurchaseInvoiceController@edit')->name('invoices.edit');
 Route::post('/invoices/edit/{id}','PurchaseInvoiceController@update')->name('invoices.update');
 Route::delete('/invoices/delete/{id}','PurchaseInvoiceController@destroy')->name('invoices.delete');
+//Route::post('/invoiceus/create', 'PurchaseInvoiceItemsController@store');
 

@@ -36,6 +36,22 @@ class PurchaseInvoiceItemsController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nama'=>'required',
+            'satuan'=> 'required',
+            'jumlah'=> 'required|integer',
+            'harga'=> 'required|integer',
+            'diskon'=> 'required|integer',
+        ]);
+        $purchaseInvoiceItems = new PurchaseInvoiceItems([
+            'nama' => $request->get('nama'),
+            'satuan'=> $request->get('satuan'),
+            'jumlah' => $request->get('jumlah'),
+            'harga'=> $request->get('harga'),
+            'diskon'=> $request->get('diskon'),
+        ]);
+        $purchaseInvoiceItems->save();
+//        return redirect('/invoices')->with('success', 'Invoice has been added');
     }
 
     /**

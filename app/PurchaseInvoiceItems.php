@@ -8,6 +8,6 @@ class PurchaseInvoiceItems extends Model
 {
     //
     protected $fillable = [
-        'harga',
+        'nama', 'satuan', 'jumlah', 'harga', 'diskon', 'purchase_invoices_id',
     ];
 }

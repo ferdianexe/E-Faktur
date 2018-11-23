@@ -17,7 +17,11 @@ class CreatePurchaseInvoiceItemsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('purchase_invoices_id');
             $table->timestamps();
+            $table->string('nama');
+            $table->string('satuan')->nullable(true)->default(0);
             $table->integer('harga');
+            $table->integer('jumlah');
+            $table->integer('diskon');
             $table->foreign('purchase_invoices_id')->references('id')->on('purchase_invoices');
         });
     }

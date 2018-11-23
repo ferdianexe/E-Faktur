@@ -5,10 +5,10 @@
   <br>
   <div class="content">
       <div class="container">
-        <form method="post" action="/invoices/create">
+        <form id="form" onsubmit="return false">
             <div class="row">
                 <p class="col-8 h2">Buat Faktur</p>
-                <button type="submit" class="btn btn-primary col-4">Save Faktur</button>
+                <button onclick="submits()" class="btn btn-primary col-4">Save Faktur</button>
             </div>
             <br>
             <div class="form-row">
@@ -43,31 +43,31 @@
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td><input type="text" class="form-control" id="inputBarang" placeholder="Barang"></td>
+                            <td><input type="text" class="form-control" id="inputBarang1" name="nama1" placeholder="Barang"></td>
                             <td></td>
-                            <td><input type="number" class="form-control" id="inputJumlah1"></td>
-                            <td><input type="number" class="form-control" id="inputHarga1"></td>
-                            <td><input type="number" class="form-control" id="inputDiskon1"></td>
+                            <td><input type="number" class="form-control" id="inputJumlah1" name="jumlah1"></td>
+                            <td><input type="number" class="form-control" id="inputHarga1" name="harga1"></td>
+                            <td><input type="number" class="form-control" id="inputDiskon1" name="diskon1"></td>
                             <td>0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
                         <tr>
-                        <th scope="row">2</th>
-                            <td><input type="text" class="form-control" id="inputBarang" placeholder="Barang"></td>
+                            <th scope="row">2</th>
+                            <td><input type="text" class="form-control" id="inputBarang2" name="nama2" placeholder="Barang"></td>
                             <td></td>
-                            <td><input type="number" class="form-control" id="inputJumlah2"></td>
-                            <td><input type="number" class="form-control" id="inputHarga2"></td>
-                            <td><input type="number" class="form-control" id="inputDiskon2"></td>
+                            <td><input type="number" class="form-control" id="inputJumlah2" name="jumlah2"></td>
+                            <td><input type="number" class="form-control" id="inputHarga2" name="harga2"></td>
+                            <td><input type="number" class="form-control" id="inputDiskon2" name="diskon2"></td>
                             <td>0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td><input type="text" class="form-control" id="inputBarang" placeholder="Barang"></td>
+                            <td><input type="text" class="form-control" id="inputBarang3" name="nama3" placeholder="Barang"></td>
                             <td></td>
-                            <td><input type="number" class="form-control" id="inputJumlah3"></td>
-                            <td><input type="number" class="form-control" id="inputHarga3"></td>
-                            <td><input type="number" class="form-control" id="inputDiskon3"></td>
+                            <td><input type="number" class="form-control" id="inputJumlah3" name="jumlah3"></td>
+                            <td><input type="number" class="form-control" id="inputHarga3" name="harga3"></td>
+                            <td><input type="number" class="form-control" id="inputDiskon3" name="diskon3"></td>
                             <td>0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
@@ -79,16 +79,24 @@
       </div>
   </div>
   <script type="text/javascript">
-    $(document).ready(function(){
       var i=3;
-      $('#add').click(function(){
+      var form = document.getElementById("form");
+      function submits(){
+          form.action = '/invoices/create/'+i;
+          console.log(form);
+          form.submit();
+      }
+    $(document).ready(function(){
+        form = document.getElementById("form");
+        form.method = 'POST';
+        $('#add').click(function(){
            i++;
            $('#invoices_data').append('<tr id=row'+i+'><th scope="row">'+i+'</th>'+
-                                        '<td><input type="text" placeholder="Barang" class="form-control" /></td>'+
+                                        '<td><input type="text" placeholder="Barang" name="nama"'+i+' class="form-control" /></td>'+
                                         '<td/>'+
-                                        '<td><input type="number" class="form-control" id="inputJumlah"'+i+'></td>'+
-                                        '<td><input type="number" class="form-control" id="inputHarga"'+i+'></td>'+
-                                        '<td><input type="number" class="form-control" id="inputDiskon"'+i+'></td>'+
+                                        '<td><input type="number" class="form-control" name="jumlah"'+i+'  id="inputJumlah"'+i+'></td>'+
+                                        '<td><input type="number" class="form-control" name="harga"'+i+' id="inputHarga"'+i+'></td>'+
+                                        '<td><input type="number" class="form-control" name="diskon"'+i+' id="inputDiskon"'+i+'></td>'+
                                         '<td> 0 </td>'+
                                         '<td class="btn btn-danger btn_remove" nomor='+i+'>Delete</td>'+
                                         '</tr>');
@@ -108,7 +116,6 @@
          });
       }
     });
-
   //// blom kepake
 </script>
 </html>

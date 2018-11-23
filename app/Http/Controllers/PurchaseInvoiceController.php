@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\PurchaseInvoice;
+use App\PurchaseInvoiceItems;
+use App\DataMaster;
 use Illuminate\Http\Request;
 
 class PurchaseInvoiceController extends Controller
@@ -35,7 +37,7 @@ class PurchaseInvoiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $banyak)
     {
         //
         $request->validate([
@@ -47,6 +49,22 @@ class PurchaseInvoiceController extends Controller
             'harga'=> $request->get('harga'),
         ]);
         $purchaseInvoice->save();
+        $counter = $banyak;
+        for($i = 1 ; $i<= $counter ; $i++){
+            $boolean  = isset($request['nama'.$i]) && $request['nama'.$i] != null
+                && isset($request['harga'.$i]) && $request['harga'.$i] != null
+                && isset($request['jumlah'.$i]) && $request['jumlah'.$i] != null
+                && isset($request['diskon'.$i]) && $request['diskon'.$i] != null;
+            if(!$boolean) continue;
+            $data1 = [
+                "nama" => $request['nama'.$i],
+                "harga" => $request['harga'.$i],
+                "jumlah" => $request['jumlah'.$i],
+                "diskon" => $request['diskon'.$i],
+                "purchase_invoices_id" => $purchaseInvoice->id,
+            ];
+            $purchaseInvoiceItems = PurchaseInvoiceItems::create($data1);
+        }
         return redirect('/invoices')->with('success', 'Invoice has been added');
     }
 

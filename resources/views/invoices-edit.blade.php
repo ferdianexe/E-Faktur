@@ -4,18 +4,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <br>
 <div class="content">
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <p class="col-8 h2">Buat Faktur</p>-->
-<!--            <button type="button" class="btn btn-primary col-4">Save Faktur</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <br>-->
     <div class="container">
-        <form method="post" action="{{ route('invoices.update', $purchaseInvoices->id) }}">
+        <form id="form" method="post" onsubmit="return false" action="{{ route('invoices.update', $purchaseInvoices->id) }}">
             <div class="row">
                 <p class="col-8 h2">Buat Faktur</p>
-                <button type="submit" class="btn btn-primary col-4">Save Faktur</button>
+                <button onclick="submits()" class="btn btn-primary col-4">Save Faktur</button>
             </div>
             <br>
             <div class="form-row">
@@ -29,8 +22,8 @@
                     <input type="date" class="form-control" id="inputTanggal" value="{{$purchaseInvoices->created_at}}">
                 </div>
                 <label>Total Semua</label><br>
-                <input type="text" name="harga" readonly class="form-control" value="{{$purchaseInvoices->harga}}">
-<!--                <button type="submit" class="btn btn-primary">Save Faktur</button>-->
+                <input type="text" name="harga" readonly class="form-control" value="{{$purchaseInvoices->total}}">
+                <!--                <button type="submit" class="btn btn-primary">Save Faktur</button>-->
             </div>
             <br>
             <div class="form-group">
@@ -48,36 +41,48 @@
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach($purchaseInvoices->items as $key=>$item)
                     <tr>
-                        <th scope="row">1</th>
-                        <td><input type="text" class="form-control" id="inputBarang" placeholder="Barang"></td>
-                        <td></td>
-                        <td><input type="number" class="form-control" id="inputJumlah1"></td>
-                        <td><input type="number" class="form-control" id="inputHarga1"></td>
-                        <td><input type="number" class="form-control" id="inputDiskon1"></td>
+                        <th scope="row">{{$key+1}}</th>
+                        <td>{{$item->nama}}</td>
                         <td>0</td>
+                        <td>{{$item->jumlah}}</td>
+                        <td>{{$item->harga}}</td>
+                        <td>{{$item->diskon}}</td>
+                        <td>{{$item->total}}</td>
                         <td class="btn btn-danger">Delete</td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td><input type="text" class="form-control" id="inputBarang" placeholder="Barang"></td>
-                        <td></td>
-                        <td><input type="number" class="form-control" id="inputJumlah2"></td>
-                        <td><input type="number" class="form-control" id="inputHarga2"></td>
-                        <td><input type="number" class="form-control" id="inputDiskon2"></td>
-                        <td>0</td>
-                        <td class="btn btn-danger">Delete</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td><input type="text" class="form-control" id="inputBarang" placeholder="Barang"></td>
-                        <td></td>
-                        <td><input type="number" class="form-control" id="inputJumlah3"></td>
-                        <td><input type="number" class="form-control" id="inputHarga3"></td>
-                        <td><input type="number" class="form-control" id="inputDiskon3"></td>
-                        <td>0</td>
-                        <td class="btn btn-danger">Delete</td>
-                    </tr>
+                    @endforeach
+<!--                    <tr>-->
+<!--                        <th scope="row">1</th>-->
+<!--                        <td><input type="text" class="form-control" id="inputBarang" name="nama1" placeholder="Barang"></td>-->
+<!--                        <td></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputJumlah1" name="jumlah1"></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputHarga1" name="harga1"></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputDiskon1" name="diskon1"></td>-->
+<!--                        <td>0</td>-->
+<!--                        <td class="btn btn-danger">Delete</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th scope="row">2</th>-->
+<!--                        <td><input type="text" class="form-control" id="inputBarang" name="nama2" placeholder="Barang"></td>-->
+<!--                        <td></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputJumlah2" name="jumlah2"></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputHarga2" name="harga2"></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputDiskon2" name="diskon2"></td>-->
+<!--                        <td>0</td>-->
+<!--                        <td class="btn btn-danger">Delete</td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <th scope="row">3</th>-->
+<!--                        <td><input type="text" class="form-control" id="inputBarang" name="nama3" placeholder="Barang"></td>-->
+<!--                        <td></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputJumlah3" name="jumlah3"></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputHarga3" name="harga3"></td>-->
+<!--                        <td><input type="number" class="form-control" id="inputDiskon3" name="diskon3"></td>-->
+<!--                        <td>0</td>-->
+<!--                        <td class="btn btn-danger">Delete</td>-->
+<!--                    </tr>-->
                     </tbody>
                 </table>
                 <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
@@ -86,16 +91,33 @@
     </div>
 </div>
 <script type="text/javascript">
+    var i= "<?php echo sizeof($purchaseInvoices->items) ?>";
+    $.ajax({
+        type:'get',
+        url:'/invoices/',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(data){
+            $("#msg").html(data.msg);
+        }
+    });
+    console.log(i);
+    var form = document.getElementById("form");
+    function submits(){
+        form.action = '/invoices/create/'+i;
+        console.log(form);
+        form.submit();
+    }
     $(document).ready(function(){
-        var i=3;
+        form = document.getElementById("form");
+        form.method = 'POST';
         $('#add').click(function(){
             i++;
             $('#invoices_data').append('<tr id=row'+i+'><th scope="row">'+i+'</th>'+
-                '<td><input type="text" placeholder="Barang" class="form-control" /></td>'+
+                '<td><input type="text" placeholder="Barang" name="nama"'+i+' class="form-control" /></td>'+
                 '<td/>'+
-                '<td><input type="number" class="form-control" id="inputJumlah"'+i+'></td>'+
-                '<td><input type="number" class="form-control" id="inputHarga"'+i+'></td>'+
-                '<td><input type="number" class="form-control" id="inputDiskon"'+i+'></td>'+
+                '<td><input type="number" class="form-control" name="jumlah"'+i+' id="inputJumlah"'+i+'></td>'+
+                '<td><input type="number" class="form-control" name="harga"'+i+' id="inputHarga"'+i+'></td>'+
+                '<td><input type="number" class="form-control" name="diskon"'+i+' id="inputDiskon"'+i+'></td>'+
                 '<td> 0 </td>'+
                 '<td class="btn btn-danger btn_remove" nomor='+i+'>Delete</td>'+
                 '</tr>');
@@ -115,7 +137,6 @@
             });
         }
     });
-
     //// blom kepake
 </script>
 </html>

@@ -85,10 +85,10 @@ class PurchaseInvoiceController extends Controller
      * @param  \App\PurchaseInvoice  $purchaseInvoice
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //
-        $purchaseInvoices = PurchaseInvoice::find($id);
+        $purchaseInvoices = PurchaseInvoice::with('items')->find($id);
         return view('invoices-edit', compact('purchaseInvoices'));
     }
 

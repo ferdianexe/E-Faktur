@@ -22,7 +22,7 @@
                 <input type="date" class="form-control" id="inputTanggal">
                 </div>
                 <label>Total Semua</label><br>
-                <input type="text" name="harga" readonly class="form-control" value="0">
+                <input type="text" name="harga" readonly class="form-control grandTotal" value="0">
 
             </div>
             <br>
@@ -43,32 +43,53 @@
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td><input type="text" class="form-control" id="inputBarang1" name="nama1" placeholder="Barang"></td>
-                            <td></td>
-                            <td><input type="number" class="form-control" id="inputJumlah1" name="jumlah1"></td>
-                            <td><input type="number" class="form-control" id="inputHarga1" name="harga1"></td>
+                            <td>
+                                <select class="form-control dataSection" nomor="1" id="inputBarang1" name="nama1" placeholder="Barang">
+                                <option value=""></option>
+                                @foreach($dataMasters as $dataMaster)
+                                 <option value ='{{$dataMaster->id}}'> {{$dataMaster->name}} </option>
+                                 @endforeach
+                                </select>
+                            </td>
+                            <td id="satuanBarang1"></td>
+                            <td><input type="number" class="form-control jumlah" nomor="1" id="inputJumlah1" name="jumlah1"></td>
+                            <td><input type="number" class="form-control" readonly id="inputHarga1" name="harga1"></td>
                             <td><input type="number" class="form-control" id="inputDiskon1" name="diskon1"></td>
-                            <td>0</td>
+                            <td id="hargaTotal1">0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td><input type="text" class="form-control" id="inputBarang2" name="nama2" placeholder="Barang"></td>
-                            <td></td>
-                            <td><input type="number" class="form-control" id="inputJumlah2" name="jumlah2"></td>
-                            <td><input type="number" class="form-control" id="inputHarga2" name="harga2"></td>
+                            <td>
+                                <select class="form-control dataSection" id="inputBarang2" nomor="2" name="nama1" placeholder="Barang">
+                                    <option value=""></option>
+                                    @foreach($dataMasters as $dataMaster)
+                                    <option value ='{{$dataMaster->id}}'> {{$dataMaster->name}} </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td id="satuanBarang2"></td>
+                            <td><input type="number" class="form-control jumlah" nomor="2" id="inputJumlah2" name="jumlah2"></td>
+                            <td><input type="number" class="form-control" readonly id="inputHarga2" name="harga2"></td>
                             <td><input type="number" class="form-control" id="inputDiskon2" name="diskon2"></td>
-                            <td>0</td>
+                            <td id="hargaTotal2">0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td><input type="text" class="form-control" id="inputBarang3" name="nama3" placeholder="Barang"></td>
-                            <td></td>
-                            <td><input type="number" class="form-control" id="inputJumlah3" name="jumlah3"></td>
-                            <td><input type="number" class="form-control" id="inputHarga3" name="harga3"></td>
+                            <td>
+                                <select class="form-control dataSection" nomor="3" id="inputBarang3" name="nama1" placeholder="Barang">
+                                    <option value=""></option>
+                                    @foreach($dataMasters as $dataMaster)
+                                    <option value ='{{$dataMaster->id}}'> {{$dataMaster->name}} </option>
+                                    @endforeach
+                                </select>
+                            </td>
+                            <td id="satuanBarang3"></td>
+                            <td><input type="number" class="form-control jumlah" nomor="3" id="inputJumlah3" name="jumlah3"></td>
+                            <td><input type="number" class="form-control" readonly id="inputHarga3" name="harga3"></td>
                             <td><input type="number" class="form-control" id="inputDiskon3" name="diskon3"></td>
-                            <td>0</td>
+                            <td id="hargaTotal3">0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
                     </tbody>
@@ -78,30 +99,38 @@
         </form>
       </div>
   </div>
-  <script type="text/javascript">
+  <script type="text/javascript">     
       var i=3;
       var form = document.getElementById("form");
       function submits(){
           form.action = '/invoices/create/'+i;
-          console.log(form);
           form.submit();
       }
+    let dataMasters = @json($dataMasters);
     $(document).ready(function(){
+        let choices ="";
+        for(let i = 0 ; i<dataMasters.length;i++){
+            let value = dataMasters[i].name;
+            choices += '<option value='+dataMasters[i].id+'>'+value+'</option>';
+        }
         form = document.getElementById("form");
         form.method = 'POST';
         $('#add').click(function(){
            i++;
            $('#invoices_data').append('<tr id=row'+i+'><th scope="row">'+i+'</th>'+
-                                        '<td><input type="text" placeholder="Barang" name="nama"'+i+' class="form-control" /></td>'+
-                                        '<td/>'+
-                                        '<td><input type="number" class="form-control" name="jumlah"'+i+'  id="inputJumlah"'+i+'></td>'+
-                                        '<td><input type="number" class="form-control" name="harga"'+i+' id="inputHarga"'+i+'></td>'+
-                                        '<td><input type="number" class="form-control" name="diskon"'+i+' id="inputDiskon"'+i+'></td>'+
-                                        '<td> 0 </td>'+
+                                        '<td><select placeholder="Barang" name="nama'+i+'" class="form-control dataSection" nomor="'+i+'">'+
+                                            '<option value=""></option>'+
+                                             choices+
+                                            '</select>'+
+                                        '<td id="satuanBarang'+i+'">'+
+                                        '</td>'+
+                                        '<td><input type="number" class="form-control jumlah" nomor="'+i+'" name="jumlah'+i+'"  id="inputJumlah'+i+'"></td>'+
+                                        '<td><input type="number" class="form-control" readonly name="harga'+i+'" id="inputHarga'+i+'"></td>'+
+                                        '<td><input type="number" class="form-control" name="diskon'+i+'" id="inputDiskon'+i+'"></td>'+
+                                        '<td id="hargaTotal'+i+'"> 0 </td>'+
                                         '<td class="btn btn-danger btn_remove" nomor='+i+'>Delete</td>'+
                                         '</tr>');
       });
-
       $(document).on('click', '.btn_remove', function(){
            var button_id = $(this).attr("nomor");
            $('#row'+button_id+'').remove();
@@ -116,7 +145,35 @@
          });
       }
     });
-  //// blom kepake
+    $( ".form-group" ).on( "change", ".dataSection", function() {
+       let dataTarget ="";
+       let target = $( this ).attr('nomor');
+       let choices = $( this ).val();
+       for(let i = 0 ; i<dataMasters.length;i++){
+            let value = dataMasters[i].id;
+            if(value==choices){
+                dataTarget = dataMasters[i];
+            }
+            
+        }
+        let harga = dataTarget.harga;
+        let satuan = dataTarget.satuan;
+        if(dataTarget==""){
+            harga="";
+            satuan="";
+        }
+        $("#satuanBarang"+target).text(satuan);
+        $("#inputHarga"+target).val(harga);
+       
+    });
+
+    $( ".form-group" ).on( "change", ".jumlah", function() {
+       let target = $( this ).attr('nomor');
+       let choices = $( this ).val();
+       let harga = parseInt($("#inputHarga"+target).val());
+       let total = harga*choices
+        $("#hargaTotal"+target).text(total); 
+    });
 </script>
 </html>
 @endsection

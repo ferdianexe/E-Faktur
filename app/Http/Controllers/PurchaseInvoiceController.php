@@ -28,7 +28,8 @@ class PurchaseInvoiceController extends Controller
      */
     public function create()
     {
-        //
+        $dataMasters = DataMaster::all();
+        return view('invoices-create',compact('dataMasters'));
     }
 
     /**

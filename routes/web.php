@@ -25,9 +25,7 @@ Route::get('/data/create', function () {
 Route::get('/data/edit/{id}', 'DataMasterController@edit')->name('data.edit');
 Route::post('/data/edit/{id}','DataMasterController@update')->name('data.update');
 Route::delete('/data/delete/{id}','DataMasterController@destroy')->name('data.delete');
-Route::get('/invoices/create', function () {
-    return view('invoices-create');
-});
+Route::get('/invoices/create','PurchaseInvoiceController@create');
 Route::get('/invoices','PurchaseInvoiceController@index');
 Route::post('/invoices/create/{banyak}','PurchaseInvoiceController@store');
 Route::get('/invoices/edit/{id}', 'PurchaseInvoiceController@edit')->name('invoices.edit');

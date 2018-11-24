@@ -20,30 +20,20 @@
               <th scope="col">Tanggal</th>
               <th scope="col">Total</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>INV01</td>
-              <td>13/11/2018</td>
-              <td>100000</td>
-              <td class="btn btn-danger">Delete</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>INV02</td>
-              <td>13/11/2018</td>
-              <td>200000</td>
-              <td class="btn btn-danger">Delete</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>INV03</td>
-              <td>13/11/2018</td>
-              <td>300000</td>
-              <td class="btn btn-danger">Delete</td>
-            </tr>
+              @foreach($purchaseInvoices as $purchaseInvoice)
+              <tr>
+                  <th scope="row">{{$purchaseInvoice->id}}</th>
+                  <td>{{$purchaseInvoice->kode}}</td>
+                  <td>{{$purchaseInvoice->created_at}}</td>
+                  <td>{{$purchaseInvoice->harga}}</td>
+                  <td class="btn btn-danger">Delete</td>
+                  <td><a href="{{ route('invoices.edit',$purchaseInvoice->id)}}" class="btn btn-primary">Edit</a></td>
+              </tr>
+              @endforeach
           </tbody>
         </table>
       </div>

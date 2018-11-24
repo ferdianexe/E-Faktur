@@ -53,36 +53,6 @@
                         <td class="btn btn-danger">Delete</td>
                     </tr>
                     @endforeach
-<!--                    <tr>-->
-<!--                        <th scope="row">1</th>-->
-<!--                        <td><input type="text" class="form-control" id="inputBarang" name="nama1" placeholder="Barang"></td>-->
-<!--                        <td></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputJumlah1" name="jumlah1"></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputHarga1" name="harga1"></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputDiskon1" name="diskon1"></td>-->
-<!--                        <td>0</td>-->
-<!--                        <td class="btn btn-danger">Delete</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <th scope="row">2</th>-->
-<!--                        <td><input type="text" class="form-control" id="inputBarang" name="nama2" placeholder="Barang"></td>-->
-<!--                        <td></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputJumlah2" name="jumlah2"></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputHarga2" name="harga2"></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputDiskon2" name="diskon2"></td>-->
-<!--                        <td>0</td>-->
-<!--                        <td class="btn btn-danger">Delete</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <th scope="row">3</th>-->
-<!--                        <td><input type="text" class="form-control" id="inputBarang" name="nama3" placeholder="Barang"></td>-->
-<!--                        <td></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputJumlah3" name="jumlah3"></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputHarga3" name="harga3"></td>-->
-<!--                        <td><input type="number" class="form-control" id="inputDiskon3" name="diskon3"></td>-->
-<!--                        <td>0</td>-->
-<!--                        <td class="btn btn-danger">Delete</td>-->
-<!--                    </tr>-->
                     </tbody>
                 </table>
                 <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>

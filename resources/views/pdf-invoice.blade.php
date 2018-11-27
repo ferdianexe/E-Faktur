@@ -1,27 +1,24 @@
-@extends('menu')
-@section('content')
+
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<br>
+<html>
+  <style type="text/css">
+   table {
+    border-collapse: collapse;
+    }
+   table, th, td {
+    border: 1px solid black;
+    }
+  </style>
 <div class="content">
   <div class="container">
       <div class="row">
           <p class="col-8 h2">Faktur {{$purchaseInvoices->kode}}</p>
-          <a href="{{ url('/invoices/export/'.$purchaseInvoices->id)}}">Export PDF</a>
       </div>
-      <br>
       <div class="form-row">
-          @csrf
           <div class="form-group col-md-6">
-              <label for="inputKodeInvoice">Kode Invoice</label>
-              <input type="text" class="form-control" id="inputKodeInvoice" name="kode" placeholder="Kode Invoice" value="{{$purchaseInvoices->kode}}">
+              <label>Tanggal {{$purchaseInvoices->created_at}}</label>
           </div>
-          <div class="form-group col-md-6">
-              <label for="inputTanggal">Tanggal</label>
-              <input type="date" class="form-control" id="inputTanggal" value="{{$purchaseInvoices->created_at}}">
-          </div>
-          <label>Total Semua</label><br>
-          <input type="text" name="harga" readonly class="form-control" value="{{$purchaseInvoices->total}}">
+          <label>Total Semua {{$purchaseInvoices->total}}</label>
       </div>
       <br>
       <div class="form-group">
@@ -53,4 +50,3 @@
   </div>
 </div>
 </html>
-@endsection

@@ -152,6 +152,7 @@ class PurchaseInvoiceController extends Controller
         $purchaseInvoices = PurchaseInvoice::with('items')->find($id);
         $pdf = PDF::loadView('pdf-invoice',['purchaseInvoices'=>$purchaseInvoices])->setPaper('a4','portrait');
         $fileName = $purchaseInvoices->kode;
-        return $pdf->stream($fileName.'.pdf');
+        return view('pdf-invoice', compact('purchaseInvoices'));
+        //return $pdf->stream($fileName.'.pdf');
     }
 }

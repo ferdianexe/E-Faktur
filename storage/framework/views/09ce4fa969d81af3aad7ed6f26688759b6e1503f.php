@@ -22,6 +22,7 @@
    <li class="<?php echo e(Request::is('/') ? 'active':''); ?>"><a href="<?php echo e(url('/')); ?>">Home</a></li>
    <li class="<?php echo e(Request::is('data/*') || Request::is('data') ? 'active':''); ?>"><a href="<?php echo e(url('/data')); ?>">Master</a></li>
    <li class="<?php echo e(Request::is('invoices/*') || Request::is('invoices') ? 'active':''); ?>"><a href="<?php echo e(url('/invoices')); ?>">Invoices</a></li>
+   <li><a href="<?php echo e(url('/hutang')); ?>">Hutang</a></li>
    <li style="position:absolute;right:0;"><a href="<?php echo e(url('/logout')); ?>">Logout</a></li>   
 </ul>
 </div>

@@ -24,6 +24,9 @@ Route::get('/', function () {
 Route::get('/menu', function () {
     return view('menu');
 })->middleware('auth');
+Route::get('/hutang', function () {
+    return view('hutang');
+})->middleware('auth');
 Route::get('/data','DataMasterController@index')->middleware('auth');
 Route::post('/data/create','DataMasterController@store')->middleware('auth');
 Route::get('/data/create', function () {

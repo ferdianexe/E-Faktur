@@ -27,7 +27,7 @@
               @foreach($purchaseInvoices as $purchaseInvoice)
               <tr>
                   <th scope="row">{{$purchaseInvoice->id}}</th>
-                  <td>{{$purchaseInvoice->kode}}</td>
+                  <td><a href="{{ route('invoices.show',$purchaseInvoice->id)}}">{{$purchaseInvoice->kode}}</a></td>
                   <td>{{$purchaseInvoice->created_at}}</td>
                   <td>{{$purchaseInvoice->harga}}</td>
                   <td class="btn btn-danger">Delete</td>

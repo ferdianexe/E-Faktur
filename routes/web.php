@@ -31,5 +31,6 @@ Route::post('/invoices/create/{banyak}','PurchaseInvoiceController@store');
 Route::get('/invoices/edit/{id}', 'PurchaseInvoiceController@edit')->name('invoices.edit');
 Route::post('/invoices/edit/{id}','PurchaseInvoiceController@update')->name('invoices.update');
 Route::delete('/invoices/delete/{id}','PurchaseInvoiceController@destroy')->name('invoices.delete');
-//Route::post('/invoiceus/create', 'PurchaseInvoiceItemsController@store');
+Route::get('/invoices/view/{id}', 'PurchaseInvoiceController@show')->name('invoices.show');
+Route::get('/invoices/export/{id}', 'PurchaseInvoiceController@exporttoPDF')->name('invoices.export');
 

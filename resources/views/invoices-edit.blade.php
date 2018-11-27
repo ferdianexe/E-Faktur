@@ -32,7 +32,6 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Barang</th>
-                        <th scope="col">Satuan</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Harga</th>
                         <th scope="col">Diskon</th>
@@ -45,7 +44,6 @@
                     <tr>
                         <th scope="row">{{$key+1}}</th>
                         <td>{{$item->nama}}</td>
-                        <td>0</td>
                         <td>{{$item->jumlah}}</td>
                         <td>{{$item->harga}}</td>
                         <td>{{$item->diskon}}</td>

@@ -6,7 +6,7 @@ use App\PurchaseInvoice;
 use App\PurchaseInvoiceItems;
 use App\DataMaster;
 use Illuminate\Http\Request;
-
+use PDF;
 class PurchaseInvoiceController extends Controller
 {
     /**
@@ -51,21 +51,36 @@ class PurchaseInvoiceController extends Controller
         ]);
         $purchaseInvoice->save();
         $counter = $banyak;
-        for($i = 1 ; $i<= $counter ; $i++){
+        $totalHarga = 0 ;
+        for($i = 1;$i<= $counter; $i++){
             $boolean  = isset($request['nama'.$i]) && $request['nama'.$i] != null
-                && isset($request['harga'.$i]) && $request['harga'.$i] != null
-                && isset($request['jumlah'.$i]) && $request['jumlah'.$i] != null
-                && isset($request['diskon'.$i]) && $request['diskon'.$i] != null;
+                 && isset($request['harga'.$i]) && $request['harga'.$i] != null
+                 && isset($request['jumlah'.$i]) && $request['jumlah'.$i] != null;            
             if(!$boolean) continue;
+            $diskon = 0 ;
+            $harga = (int)$request['harga'.$i];
+            $jumlah = (int)$request['jumlah'.$i];
+            if(!$request['diskon'.$i]){
+                $diskon = 0 ;
+            }else{
+                
+                $diskon = (int)$request['diskon'.$i];
+
+            }
+            $total = ($harga*$jumlah)-$diskon;
             $data1 = [
                 "nama" => $request['nama'.$i],
                 "harga" => $request['harga'.$i],
                 "jumlah" => $request['jumlah'.$i],
-                "diskon" => $request['diskon'.$i],
+                "diskon" => $diskon,
                 "purchase_invoices_id" => $purchaseInvoice->id,
+                "totalHarga"=>$total,
             ];
-            $purchaseInvoiceItems = PurchaseInvoiceItems::create($data1);
+            $totalHarga += $total;
+            $purchaseInvoiceItems = PurchaseInvoiceItems::create($data1);  
         }
+        $purchaseInvoice->harga = $totalHarga ;
+        $purchaseInvoice->save();
         return redirect('/invoices')->with('success', 'Invoice has been added');
     }
 
@@ -75,9 +90,10 @@ class PurchaseInvoiceController extends Controller
      * @param  \App\PurchaseInvoice  $purchaseInvoice
      * @return \Illuminate\Http\Response
      */
-    public function show(PurchaseInvoice $purchaseInvoice)
+    public function show(Request $request, $id)
     {
-        //
+        $purchaseInvoices = PurchaseInvoice::with('items')->find($id);
+        return view('invoices-view', compact('purchaseInvoices'));
     }
 
     /**
@@ -123,5 +139,19 @@ class PurchaseInvoiceController extends Controller
     public function destroy(PurchaseInvoice $purchaseInvoice)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\PurchaseInvoice  $purchaseInvoice
+     * @return \Illuminate\Http\Response
+     */
+    public function exporttoPDF(Request $request, $id)
+    {
+        $purchaseInvoices = PurchaseInvoice::with('items')->find($id);
+        $pdf = PDF::loadView('pdf-invoice',['purchaseInvoices'=>$purchaseInvoices])->setPaper('a4','portrait');
+        $fileName = $purchaseInvoices->kode;
+        return $pdf->stream($fileName.'.pdf');
     }
 }

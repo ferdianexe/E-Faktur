@@ -47,48 +47,48 @@
                                 <select class="form-control dataSection" nomor="1" id="inputBarang1" name="nama1" placeholder="Barang">
                                 <option value=""></option>
                                 @foreach($dataMasters as $dataMaster)
-                                 <option value ='{{$dataMaster->id}}'> {{$dataMaster->name}} </option>
+                                 <option value ='{{$dataMaster->name}}'> {{$dataMaster->name}} </option>
                                  @endforeach
                                 </select>
                             </td>
                             <td id="satuanBarang1"></td>
                             <td><input type="number" class="form-control jumlah" nomor="1" id="inputJumlah1" name="jumlah1"></td>
                             <td><input type="number" class="form-control" readonly id="inputHarga1" name="harga1"></td>
-                            <td><input type="number" class="form-control" id="inputDiskon1" name="diskon1"></td>
+                            <td><input type="number" class="form-control discountSection" nomor ="1" id="inputDiskon1" name="diskon1"></td>
                             <td id="hargaTotal1">0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
                             <td>
-                                <select class="form-control dataSection" id="inputBarang2" nomor="2" name="nama1" placeholder="Barang">
+                                <select class="form-control dataSection" id="inputBarang2" nomor="2" name="nama2" placeholder="Barang">
                                     <option value=""></option>
                                     @foreach($dataMasters as $dataMaster)
-                                    <option value ='{{$dataMaster->id}}'> {{$dataMaster->name}} </option>
+                                    <option value ='{{$dataMaster->name}}'> {{$dataMaster->name}} </option>
                                     @endforeach
                                 </select>
                             </td>
                             <td id="satuanBarang2"></td>
                             <td><input type="number" class="form-control jumlah" nomor="2" id="inputJumlah2" name="jumlah2"></td>
                             <td><input type="number" class="form-control" readonly id="inputHarga2" name="harga2"></td>
-                            <td><input type="number" class="form-control" id="inputDiskon2" name="diskon2"></td>
+                            <td><input type="number" class="form-control discountSection" nomor="2" id="inputDiskon2" name="diskon2"></td>
                             <td id="hargaTotal2">0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
                             <td>
-                                <select class="form-control dataSection" nomor="3" id="inputBarang3" name="nama1" placeholder="Barang">
+                                <select class="form-control dataSection" nomor="3" id="inputBarang3" name="nama3" placeholder="Barang">
                                     <option value=""></option>
                                     @foreach($dataMasters as $dataMaster)
-                                    <option value ='{{$dataMaster->id}}'> {{$dataMaster->name}} </option>
+                                    <option value ='{{$dataMaster->name}}'> {{$dataMaster->name}} </option>
                                     @endforeach
                                 </select>
                             </td>
                             <td id="satuanBarang3"></td>
                             <td><input type="number" class="form-control jumlah" nomor="3" id="inputJumlah3" name="jumlah3"></td>
                             <td><input type="number" class="form-control" readonly id="inputHarga3" name="harga3"></td>
-                            <td><input type="number" class="form-control" id="inputDiskon3" name="diskon3"></td>
+                            <td><input type="number" class="form-control discountSection" nomor="3" id="inputDiskon3" name="diskon3"></td>
                             <td id="hargaTotal3">0</td>
                             <td class="btn btn-danger">Delete</td>
                         </tr>
@@ -111,7 +111,7 @@
         let choices ="";
         for(let i = 0 ; i<dataMasters.length;i++){
             let value = dataMasters[i].name;
-            choices += '<option value='+dataMasters[i].id+'>'+value+'</option>';
+            choices += '<option value='+value+'>'+value+'</option>';
         }
         form = document.getElementById("form");
         form.method = 'POST';
@@ -126,7 +126,7 @@
                                         '</td>'+
                                         '<td><input type="number" class="form-control jumlah" nomor="'+i+'" name="jumlah'+i+'"  id="inputJumlah'+i+'"></td>'+
                                         '<td><input type="number" class="form-control" readonly name="harga'+i+'" id="inputHarga'+i+'"></td>'+
-                                        '<td><input type="number" class="form-control" name="diskon'+i+'" id="inputDiskon'+i+'"></td>'+
+                                        '<td><input type="number" class="form-control discountSection" nomor="'+i+'" name="diskon'+i+'" id="inputDiskon'+i+'"></td>'+
                                         '<td id="hargaTotal'+i+'"> 0 </td>'+
                                         '<td class="btn btn-danger btn_remove" nomor='+i+'>Delete</td>'+
                                         '</tr>');
@@ -150,11 +150,10 @@
        let target = $( this ).attr('nomor');
        let choices = $( this ).val();
        for(let i = 0 ; i<dataMasters.length;i++){
-            let value = dataMasters[i].id;
+            let value = dataMasters[i].name;
             if(value==choices){
                 dataTarget = dataMasters[i];
             }
-            
         }
         let harga = dataTarget.harga;
         let satuan = dataTarget.satuan;
@@ -164,6 +163,16 @@
         }
         $("#satuanBarang"+target).text(satuan);
         $("#inputHarga"+target).val(harga);
+       
+    });
+
+    $( ".form-group" ).on( "change", ".discountSection", function() {
+       let target = $( this ).attr('nomor');
+       let discount = $( this ).val();
+       let harga = parseInt($("#inputHarga"+target).val());
+       let jumlah = parseInt($("#inputJumlah"+target).val());
+       let total = harga*jumlah-discount;
+        $("#hargaTotal"+target).text(total); 
        
     });
 

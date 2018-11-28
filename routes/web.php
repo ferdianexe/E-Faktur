@@ -34,10 +34,11 @@ Route::get('/data/edit/{id}', 'DataMasterController@edit')->name('data.edit')->m
 Route::post('/data/edit/{id}','DataMasterController@update')->name('data.update')->middleware('auth');
 Route::delete('/data/delete/{id}','DataMasterController@destroy')->name('data.delete')->middleware('auth');
 Route::get('/invoices/create','PurchaseInvoiceController@create')->middleware('auth');
-Route::get('/invoices','PurchaseInvoiceController@index')->name('invoices.show')->middleware('auth');
+Route::get('/invoices','PurchaseInvoiceController@index')->middleware('auth');
+Route::get('/invoices/view/{id}','PurchaseInvoiceController@show')->name('invoices.show')->middleware('auth');
 Route::post('/invoices/create/{banyak}','PurchaseInvoiceController@store')->middleware('auth');
 Route::get('/invoices/edit/{id}', 'PurchaseInvoiceController@edit')->name('invoices.edit')->middleware('auth');
 Route::post('/invoices/edit/{id}','PurchaseInvoiceController@update')->name('invoices.update')->middleware('auth');
 Route::delete('/invoices/delete/{id}','PurchaseInvoiceController@destroy')->name('invoices.delete')->middleware('auth');
-//Route::post('/invoiceus/create', 'PurchaseInvoiceItemsController@store');
+Route::get('/invoices/export/{id}','PurchaseInvoiceController@exporttoPDF')->name('invoices.export')->middleware('auth');
 

@@ -14,11 +14,11 @@
           @csrf
           <div class="form-group col-md-6">
               <label for="inputKodeInvoice">Kode Invoice</label>
-              <input type="text" class="form-control" id="inputKodeInvoice" name="kode" placeholder="Kode Invoice" value="{{$purchaseInvoices->kode}}">
+              <input type="text" readonly class="form-control" id="inputKodeInvoice" name="kode" placeholder="Kode Invoice" value="{{$purchaseInvoices->kode}}">
           </div>
           <div class="form-group col-md-6">
               <label for="inputTanggal">Tanggal</label>
-              <input type="date" class="form-control" id="inputTanggal" value="{{$purchaseInvoices->created_at}}">
+              <input readonly class="form-control" id="inputTanggal" value="{{$purchaseInvoices->created_at}}"> </p>
           </div>
           <label>Total Semua</label><br>
           <input type="text" name="harga" readonly class="form-control" value="{{$purchaseInvoices->total}}">

@@ -16,14 +16,19 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Kode Invoices</th>
-              <th scope="col"></th>
               <th scope="col">Tanggal</th>
               <th scope="col">Total</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
+              @foreach($purchaseInvoices as $purchaseInvoice)
+              <tr>
+                  <th scope="row">{{$purchaseInvoice->id}}</th>
+                  <td><a href="{{ route('invoices.show',$purchaseInvoice->id)}}">{{$purchaseInvoice->kode}}</a></td>
+                  <td>{{$purchaseInvoice->created_at}}</td>
+                  <td>{{$purchaseInvoice->harga}}</td>
+              </tr>
+              @endforeach
           </tbody>
         </table>
       </div>

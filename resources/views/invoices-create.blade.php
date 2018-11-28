@@ -151,6 +151,7 @@
        let choices = $( this ).val();
        for(let i = 0 ; i<dataMasters.length;i++){
             let value = dataMasters[i].name;
+            console.log(choices+"asd");
             if(value==choices){
                 dataTarget = dataMasters[i];
             }
